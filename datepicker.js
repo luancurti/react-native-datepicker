@@ -144,7 +144,7 @@ class DatePicker extends Component {
       return date;
     }
 
-    return Moment(date, format).toDate();
+    return Moment.utc(date, format).toDate();
   }
 
   getDateStr(date = this.props.date) {
@@ -158,7 +158,7 @@ class DatePicker extends Component {
       return this.props.getDateStr(dateInstance);
     }
 
-    return Moment(dateInstance).format(format);
+    return Moment.utc(dateInstance).format(format);
   }
 
   datePicked() {
@@ -211,7 +211,7 @@ class DatePicker extends Component {
   onTimePicked({action, hour, minute}) {
     if (action !== DatePickerAndroid.dismissedAction) {
       this.setState({
-        date: Moment().hour(hour).minute(minute).toDate()
+        date: Moment.utc().hour(hour).minute(minute).toDate()
       });
       this.datePicked();
     } else {
@@ -223,7 +223,7 @@ class DatePicker extends Component {
     const {mode, androidMode, format = FORMATS[mode], is24Hour = !format.match(/h|a/)} = this.props;
 
     if (action !== DatePickerAndroid.dismissedAction) {
-      let timeMoment = Moment(this.state.date);
+      let timeMoment = Moment.utc(this.state.date);
 
       TimePickerAndroid.open({
         hour: timeMoment.hour(),
@@ -276,7 +276,7 @@ class DatePicker extends Component {
       } else if (mode === 'time') {
         // 选时间
 
-        let timeMoment = Moment(this.state.date);
+        let timeMoment = Moment.utc(this.state.date);
 
         TimePickerAndroid.open({
           hour: timeMoment.hour(),
